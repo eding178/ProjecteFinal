@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_maquines"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="Maquines" />
+
+    <item
+        android:id="@+id/navigation_tipusmaquines"
+        android:icon="@android:drawable/ic_dialog_dialer"
+        android:title="TipusMaquines" />
+
+    <item
+        android:id="@+id/navigation_zones"
+        android:icon="@android:drawable/stat_notify_chat"
+        android:title="Zones" />
+    <item
+        android:id="@+id/navigation_maps"
+        android:icon="@android:drawable/ic_dialog_map"
+        android:title="Maps" />
+
+</menu>
