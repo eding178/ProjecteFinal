@@ -24,8 +24,10 @@ public class maquinesAddEdit extends AppCompatActivity {
     private long id;
     private Cursor zonesCursor;
     private Cursor tipusMaquinesCursor;
+    private Cursor maquinesCursor;
     private String zonaEscullida;
     private String tipusMaquinaEscullit;
+    ArrayList<Integer> arrayMaquines_NumeroSerie = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,20 +38,27 @@ public class maquinesAddEdit extends AppCompatActivity {
 //CONSULTO QUINES ZONES I TIPUS DE MAQUINA HI HA
         zonesCursor = dataSource.zones();
         tipusMaquinesCursor = dataSource.tipusMaquines();
+        maquinesCursor=dataSource.maquines();
 
 //HO PASSO A ARRAYLIST EL CURSOR DE ZONES
         ArrayList<String> arrayZones = new ArrayList<String>();
         while(zonesCursor.moveToNext()) {
-            arrayZones.add(zonesCursor.getString(zonesCursor.getColumnIndex(dataSource.ZONES_NOM))); //add the item
+            arrayZones.add(zonesCursor.getString(zonesCursor.getColumnIndex(dataSource.ZONES_NOM)));
         }
         System.out.println(arrayZones.toString());
 
 //HO PASSO A ARRAYLIST EL CURSOR DE TIPUSMAQUINES
         ArrayList<String> arrayTipusMaquines = new ArrayList<String>();
         while(tipusMaquinesCursor.moveToNext()) {
-            arrayTipusMaquines.add(tipusMaquinesCursor.getString(tipusMaquinesCursor.getColumnIndex(dataSource.TIPUS_MAQUINES_NOM))); //add the item
+            arrayTipusMaquines.add(tipusMaquinesCursor.getString(tipusMaquinesCursor.getColumnIndex(dataSource.TIPUS_MAQUINES_NOM)));
         }
         System.out.println(arrayTipusMaquines.toString());
+
+//HO PASSO A ARRAYLIST EL CURSOR DE MAQUINES
+        while(maquinesCursor.moveToNext()) {
+            arrayMaquines_NumeroSerie.add(maquinesCursor.getInt(maquinesCursor.getColumnIndex(dataSource.MAQUINA_NUMERO_SERIE)));
+        }
+        System.out.println(arrayMaquines_NumeroSerie.toString());
 
         Spinner desplegableTipusMaquina = findViewById(R.id.tipusMaquinaSpin);
         ArrayAdapter<CharSequence> adapterTipusMaquina = new ArrayAdapter(this, android.R.layout.simple_spinner_item,arrayTipusMaquines);
@@ -173,14 +182,25 @@ public class maquinesAddEdit extends AppCompatActivity {
             myDialogs.showToast(this,"Hi ha hagut algun error");
             return;
         }
-
+//comprobar que el numero de serie no esigui repetit
         tv = (TextView) findViewById(R.id.numeroSerie);
         String num;
+        num = tv.getText().toString();
+        if(num.length()<=0){
+            myDialogs.showToast(this,"El numero de serie no es valid");
+            return;
+        }
         try {
-            num = tv.getText().toString();
-            if(num.length()<=0){
-                myDialogs.showToast(this,"El numero de serie no es valid");
-                return;
+            int numeroSerie=Integer.parseInt(num);
+            System.out.println("***************************************************************************************");
+            int i=1;
+            while (i<arrayMaquines_NumeroSerie.size()){
+                System.out.println("NUMERO DE SERIE ESCRIT:"+numeroSerie+"\nNUMERO UNA ALTRE MAQUINA: "+arrayMaquines_NumeroSerie.get(i));
+                if(arrayMaquines_NumeroSerie.get(i)==numeroSerie){
+                    myDialogs.showToast(this,"El numero de serie ya existe");
+                    return;
+                }
+                i++;
             }
         }
         catch (Exception e) {
@@ -202,7 +222,7 @@ public class maquinesAddEdit extends AppCompatActivity {
             myDialogs.showToast(this,"La zona es obligatoria");
             return;
         }
-        
+
         // guardem les altres dades que no cal validar
         tv = (TextView) findViewById(R.id.adreca);
         String adreca = tv.getText().toString();
