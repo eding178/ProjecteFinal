@@ -23,7 +23,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class TipusMaquinesFragment extends Fragment {
     private DataSource dataSource;
     private static String[] from = new String[]{DataSource.TIPUS_MAQUINES_NOM};
-    private static int[] to = new int[]{R.id.zona};
+    private static int[] to = new int[]{R.id.tipusMaquinaSpin};
     Adapter adapter;
     View root;
     private TipusMaquinesViewModel tipusmaquinesViewModel;

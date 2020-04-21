@@ -51,7 +51,7 @@ public class maquinesAddEdit extends AppCompatActivity {
         }
         System.out.println(arrayTipusMaquines.toString());
 
-        Spinner desplegableTipusMaquina = findViewById(R.id.tipusMaquina);
+        Spinner desplegableTipusMaquina = findViewById(R.id.tipusMaquinaSpin);
         ArrayAdapter<CharSequence> adapterTipusMaquina = new ArrayAdapter(this, android.R.layout.simple_spinner_item,arrayTipusMaquines);
         desplegableTipusMaquina.setAdapter(adapterTipusMaquina);
         desplegableTipusMaquina.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -62,12 +62,11 @@ public class maquinesAddEdit extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
-        Spinner desplegableZones = findViewById(R.id.zona);
-        ArrayAdapter<CharSequence> adapterZones = new ArrayAdapter(this, android.R.layout.simple_spinner_item,arrayTipusMaquines);
+        Spinner desplegableZones = findViewById(R.id.zonaSpin);
+        ArrayAdapter<CharSequence> adapterZones = new ArrayAdapter(this, android.R.layout.simple_spinner_item,arrayZones);
         desplegableZones.setAdapter(adapterZones);
         desplegableZones.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -77,7 +76,6 @@ public class maquinesAddEdit extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -189,26 +187,22 @@ public class maquinesAddEdit extends AppCompatActivity {
             myDialogs.showToast(this,"El numero de serie ha de ser un valor numeric");
             return;
         }
-/*
-        tv = (TextView) findViewById(R.id.tipusMaquina);
-        String tipusMaquina = tv.getText().toString();
+
+        Spinner spinner=  findViewById(R.id.tipusMaquinaSpin);
+        String tipusMaquina = spinner.getSelectedItem().toString();
         if(tipusMaquina.length()==0){
             myDialogs.showToast(this,"El tipus maquina es obligatoria");
             return;
         }
 
 
-        tv = (TextView) findViewById(R.id.zona);
-        String zona = tv.getText().toString();
+        spinner =  findViewById(R.id.zonaSpin);
+        String zona = spinner.getSelectedItem().toString();
         if(zona.length()==0){
             myDialogs.showToast(this,"La zona es obligatoria");
             return;
         }
-*/
-        String tipusMaquina="T1";
-        String zona="Z1";
-
-
+        
         // guardem les altres dades que no cal validar
         tv = (TextView) findViewById(R.id.adreca);
         String adreca = tv.getText().toString();

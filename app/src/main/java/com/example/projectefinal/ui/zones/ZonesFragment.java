@@ -24,7 +24,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class ZonesFragment extends Fragment {
     private DataSource dataSource;
     private static String[] from = new String[]{DataSource.ZONES_NOM};
-    private static int[] to = new int[]{R.id.zona};
+    private static int[] to = new int[]{R.id.zonaSpin};
     com.example.projectefinal.ui.zones.Adapter adapter;
     View root;
     private ZonesViewModel zonesViewModel;

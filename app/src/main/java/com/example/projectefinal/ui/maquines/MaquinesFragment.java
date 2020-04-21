@@ -21,7 +21,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class MaquinesFragment extends Fragment {
     private static String[] from = new String[]{DataSource.MAQUINA_NOM_CLIENT,DataSource.MAQUINA_ADRECA,DataSource.MAQUINA_TELEFON,DataSource.MAQUINA_EMAIL,DataSource.MAQUINA_NUMERO_SERIE,DataSource.MAQUINA_ULTIMA_REVISIO,DataSource.MAQUINA_TIPUS_ID,DataSource.MAQUINA_ZONA_ID};
-    private static int[] to = new int[]{R.id.nom,R.id.adreca,R.id.telefon,R.id.email,R.id.numeroSerie,R.id.dataRevisio,R.id.tipusMaquina,R.id.zona};
+    private static int[] to = new int[]{R.id.nom,R.id.adreca,R.id.telefon,R.id.email,R.id.numeroSerie,R.id.dataRevisio,R.id.tipusMaquinaSpin,R.id.zonaSpin};
     private MaquinesViewModel homeViewModel;
     Adapter adapter;
     View root;
