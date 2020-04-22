@@ -1,13 +1,20 @@
 package com.example.projectefinal.ui.maquines;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -33,6 +40,7 @@ public class MaquinesFragment extends Fragment {
 
         root = inflater.inflate(R.layout.fragment_maquines, container, false);
         dataSource = new DataSource(getActivity());
+
         FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +61,13 @@ public class MaquinesFragment extends Fragment {
         lv.setAdapter(adapter);
         return root;
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.desplegable, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
     public void editMaquina(long id) {
         Intent i = new Intent(MaquinesFragment.this.getActivity(), maquinesAddEdit.class);
         Bundle bundle = new Bundle();
@@ -95,6 +110,61 @@ public class MaquinesFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
+    private String FilterDialog() {
+        final String[] nSerie = new String[1];
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Nom del tipus de maquina");
+
+        // Set up the input
+        final EditText input = new EditText(getActivity());
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                 nSerie[0] = input.getText().toString();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+        return input.getText().toString();
+    }
+
+    // Capturar pulsacions en el menú de la barra superior.
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        String nSerie;
+        Cursor cursorFiltrat;
+
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case R.id.filtrarNSerie:
+                nSerie = FilterDialog();
+                System.out.println(nSerie);
+                //cursorFiltrat=dataSource.maquinaWhereNumeroSerie(nSerie);
+                //adapter = new Adapter(getActivity(), R.layout.un_maquines, cursorFiltrat, from, to, 1, this);
+                return true;
+            case R.id.ordenarNom:
+
+                return true;
+            case R.id.ordenarPoblacio:
+
+                return true;
+            case  R.id.ordenarData:
+
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
 }
 //****************************
 //Adapter
@@ -103,14 +173,14 @@ class Adapter extends SimpleCursorAdapter {
     private MaquinesFragment fragment;
     private Context context;
 
-    public Adapter (Context context, int layout, Cursor c, String[] from, int[] to, int flags, MaquinesFragment fragment) {
+    public Adapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags, MaquinesFragment fragment) {
         super(context, layout, c, from, to, flags);
         this.context = context;
         this.fragment = fragment;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        final View view = super.getView (position, convertView, parent);
+        final View view = super.getView(position, convertView, parent);
 
         //boto Borrar
         ImageView deleteBtn = view.findViewById(R.id.btnDelete);
@@ -157,9 +227,9 @@ class Adapter extends SimpleCursorAdapter {
                 // Carrego la linia del cursor de la posició.
                 Cursor linia = (Cursor) getItem(position);
                 int numeroSerie = (linia.getInt(linia.getColumnIndexOrThrow(DataSource.MAQUINA_NUMERO_SERIE)));
-                Intent intent =new Intent(Intent.ACTION_SEND);
+                Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Propera revisió màquina nº "+numeroSerie);
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Propera revisió màquina nº " + numeroSerie);
                 //intent.putExtra(Intent.EXTRA_TEXT, "Enviant un Mail desde la app");
                 //intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"eding178@gmail.com"});
                 fragment.startActivity(intent);

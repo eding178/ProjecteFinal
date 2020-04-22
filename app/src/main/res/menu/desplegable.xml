@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/filtrarNSerie"
+        android:title="Filtrar per nºSerie"
+        app:showAsAction="always"></item>
+    <item
+        android:id="@+id/ordenarNom"
+        app:showAsAction="never"
+        android:title="Ordenar per nom">
+    </item>
+    <item
+        android:id="@+id/ordenarData"
+        app:showAsAction="never"
+        android:title="Ordenar per data de revisio">
+    </item>
+    <item
+        android:id="@+id/ordenarPoblacio"
+        app:showAsAction="never"
+        android:title="Ordenar per població">
+    </item>
+</menu>
