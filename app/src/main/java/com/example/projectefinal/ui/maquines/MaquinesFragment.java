@@ -119,7 +119,7 @@ class Adapter extends SimpleCursorAdapter {
                 // Busquem la linia a eliminar
                 View row = (View) v.getParent().getParent();
                 // Busquem el listView per poder treure el numero de la fila
-                ListView lv = (ListView) row.getParent().getParent();
+                ListView lv = (ListView) row.getParent().getParent().getParent();
                 // Busco quina posicio ocupa la Row dins de la ListView
                 int position = lv.getPositionForView(row);
                 // Carrego la linia del cursor de la posició.
@@ -135,7 +135,7 @@ class Adapter extends SimpleCursorAdapter {
                 // Busquem la linia a eliminar
                 View row = (View) v.getParent().getParent();
                 // Busquem el listView per poder treure el numero de la fila
-                ListView lv = (ListView) row.getParent().getParent();
+                ListView lv = (ListView) row.getParent().getParent().getParent();
                 // Busco quina posicio ocupa la Row dins de la ListView
                 int position = lv.getPositionForView(row);
                 // Carrego la linia del cursor de la posició.
@@ -151,7 +151,7 @@ class Adapter extends SimpleCursorAdapter {
                 // Busquem la linia a eliminar
                 View row = (View) v.getParent().getParent();
                 // Busquem el listView per poder treure el numero de la fila
-                ListView lv = (ListView) row.getParent().getParent();
+                ListView lv = (ListView) row.getParent();
                 // Busco quina posicio ocupa la Row dins de la ListView
                 int position = lv.getPositionForView(row);
                 // Carrego la linia del cursor de la posició.
@@ -173,7 +173,7 @@ class Adapter extends SimpleCursorAdapter {
                 // Busquem la linia a eliminar
                 View row = (View) v.getParent().getParent();
                 // Busquem el listView per poder treure el numero de la fila
-                ListView lv = (ListView) row.getParent().getParent();
+                ListView lv = (ListView) row.getParent();
                 // Busco quina posicio ocupa la Row dins de la ListView
                 int position = lv.getPositionForView(row);
                 // Carrego la linia del cursor de la posició.
