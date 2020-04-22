@@ -72,6 +72,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:textSize="19sp" />
+
+            <ImageButton
+                android:id="@+id/btnCall"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@android:drawable/stat_sys_phone_call_forward" />
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,7 +98,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
+                android:textAlignment="center"
                 android:textSize="19sp" />
+
+            <ImageButton
+                android:id="@+id/btnMail"
+                android:layout_width="273dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@android:drawable/ic_dialog_email" />
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:textSize="19sp" />
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

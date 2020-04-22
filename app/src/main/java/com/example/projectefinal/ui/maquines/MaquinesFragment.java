@@ -3,6 +3,7 @@ package com.example.projectefinal.ui.maquines;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -140,6 +141,46 @@ class Adapter extends SimpleCursorAdapter {
                 // Carrego la linia del cursor de la posició.
                 Cursor linia = (Cursor) getItem(position);
                 fragment.editMaquina(linia.getLong(linia.getColumnIndexOrThrow(DataSource.MAQUINA_ID)));
+            }
+        });
+
+        //boto trucar
+        ImageView btnMail = view.findViewById(R.id.btnMail);
+        btnMail.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Busquem la linia a eliminar
+                View row = (View) v.getParent().getParent();
+                // Busquem el listView per poder treure el numero de la fila
+                ListView lv = (ListView) row.getParent().getParent();
+                // Busco quina posicio ocupa la Row dins de la ListView
+                int position = lv.getPositionForView(row);
+                // Carrego la linia del cursor de la posició.
+                Cursor linia = (Cursor) getItem(position);
+                int numeroSerie = (linia.getInt(linia.getColumnIndexOrThrow(DataSource.MAQUINA_NUMERO_SERIE)));
+                Intent intent =new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Propera revisió màquina nº "+numeroSerie);
+                //intent.putExtra(Intent.EXTRA_TEXT, "Enviant un Mail desde la app");
+                //intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"eding178@gmail.com"});
+                fragment.startActivity(intent);
+            }
+        });
+
+        //boto trucar
+        ImageView btnCall = view.findViewById(R.id.btnCall);
+        btnCall.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Busquem la linia a eliminar
+                View row = (View) v.getParent().getParent();
+                // Busquem el listView per poder treure el numero de la fila
+                ListView lv = (ListView) row.getParent().getParent();
+                // Busco quina posicio ocupa la Row dins de la ListView
+                int position = lv.getPositionForView(row);
+                // Carrego la linia del cursor de la posició.
+                Cursor linia = (Cursor) getItem(position);
+                int telefon = (linia.getInt(linia.getColumnIndexOrThrow(DataSource.MAQUINA_TELEFON)));
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + telefon));
+                fragment.startActivity(intent);
             }
         });
         return view;

@@ -131,10 +131,14 @@ public class DataSource {
         dbW.update(TABLE_TIPUS_MAQUINES,val,TIPUS_MAQUINES_ID+"=?",new String[]{String.valueOf(id)});
     }
 
-    public void deleteTipusMaquina(long id) {
+    public boolean deleteTipusMaquina(long id) {
         //COMPROVACIO PREVIA (no es pot eliminar si hi ha màquines DEL TIPO)
-        //if(comprobacioDeleteTipusMaquina(id))
+        if(comprobacioDeleteTipusMaquina(id)){
         dbW.delete(TABLE_TIPUS_MAQUINES,TIPUS_MAQUINES_ID+"=?",new String[]{String.valueOf(id)});
+            return true;
+        }
+        else
+            return false;
     }
 
     //***********************
@@ -165,10 +169,14 @@ public class DataSource {
         dbW.update(TABLE_ZONES,val,ZONES_ID+"=?",new String[]{String.valueOf(id)});
     }
 
-    public void deletezones(long id) {
+    public boolean deletezones(long id) {
         //COMPROVACIO PREVIA (no es pot eliminar si hi ha màquines en la zona)
-        if(comprobacioDeleteZones(id))
-        dbW.delete(TABLE_ZONES,ZONES_ID+"=?",new String[]{String.valueOf(id)});
+        if(comprobacioDeleteZones(id)){
+            dbW.delete(TABLE_ZONES,ZONES_ID+"=?",new String[]{String.valueOf(id)});
+            return true;
+        }
+        else
+            return false;
     }
 
     //***********************
@@ -179,11 +187,11 @@ public class DataSource {
         Cursor cursor= dbR.rawQuery("SELECT COUNT (*) FROM " + TABLE_MAQUINA + " WHERE " + MAQUINA_ZONA_ID + "=?",
                 new String[] { String.valueOf(id) });
 
-        return cursor!=null && cursor.getCount()!=0;
+        return  cursor.getCount()<=0;
     }
     public boolean comprobacioDeleteTipusMaquina(long id) {
         Cursor cursor= dbR.rawQuery("SELECT COUNT (*) FROM " + TABLE_MAQUINA + " WHERE " + MAQUINA_TIPUS_ID + "=?",
                 new String[] { String.valueOf(id) });
-        return cursor!=null || cursor.getCount()!=0;
+        return cursor.getCount()<=0;
     }
 }

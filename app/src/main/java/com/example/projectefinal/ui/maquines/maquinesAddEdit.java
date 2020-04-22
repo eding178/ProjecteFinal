@@ -153,11 +153,11 @@ public class maquinesAddEdit extends AppCompatActivity {
         tv = (TextView) findViewById(R.id.dataRevisio);
         tv.setText(datos.getString(datos.getColumnIndex(DataSource.MAQUINA_ULTIMA_REVISIO)));
 /*
+        Spinner spin = findViewById(R.id.tipusMaquinaSpin);
+        String nameToLoad=datos.getString(datos.getColumnIndex(DataSource.MAQUINA_TIPUS_ID));
+        spin.isSelected(nameToLoad);
 
-        tv = (TextView) findViewById(R.id.tipusMaquina);
-        tv.setText(datos.getString(datos.getColumnIndex(DataSource.MAQUINA_TIPUS_ID)));
-
-        tv = (TextView) findViewById(R.id.zona);
+        spin = findViewById(R.id.zonaSpin);
         tv.setText(datos.getString(datos.getColumnIndex(DataSource.MAQUINA_ZONA_ID)));
 */
     }

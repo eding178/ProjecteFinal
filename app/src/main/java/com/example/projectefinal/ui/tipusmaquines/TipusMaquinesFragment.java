@@ -113,8 +113,14 @@ public class TipusMaquinesFragment extends Fragment {
     }
 
     public void consultaDeleteTipusMaquines(long id) {
-        dataSource.deleteTipusMaquina(id);
+        boolean doIt =dataSource.deleteTipusMaquina(id);
+        if(doIt)
         refreshTasks();
+        else {
+            Snackbar snackBar = Snackbar.make(getActivity().findViewById(android.R.id.content),
+                    "No s'ha pogut eliminar per que hi han maquines d'aquest tipo.", Snackbar.LENGTH_SHORT);
+            snackBar.show();
+        }
     }
 
     public Cursor consultaShowTipusMaquines() {

@@ -115,8 +115,14 @@ public class ZonesFragment extends Fragment {
     }
 
     public void consultaDeleteTipusMaquines(long id) {
-        dataSource.deletezones(id);
-        refreshTasks();
+        boolean doIt = dataSource.deletezones(id);
+        if(doIt)
+            refreshTasks();
+        else {
+            Snackbar snackBar = Snackbar.make(getActivity().findViewById(android.R.id.content),
+                    "No s'ha pogut eliminar per que hi han maquines en aquesta zona.", Snackbar.LENGTH_SHORT);
+            snackBar.show();
+        }
     }
 
     public Cursor consultaShowZones() {
