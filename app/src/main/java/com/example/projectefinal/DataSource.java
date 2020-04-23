@@ -103,6 +103,20 @@ public class DataSource {
         dbW.delete(TABLE_MAQUINA,MAQUINA_ID+"=?",new String[]{String.valueOf(id)});
     }
 
+    //Wheres****
+    public Cursor maquinaWhere(String camp, int valor){
+        return dbR.query(TABLE_MAQUINA, new String[]{MAQUINA_ID,MAQUINA_NOM_CLIENT,MAQUINA_ADRECA,MAQUINA_CODI_POSTAL,MAQUINA_POBLACIO,MAQUINA_TELEFON,MAQUINA_EMAIL,MAQUINA_NUMERO_SERIE,MAQUINA_ULTIMA_REVISIO,MAQUINA_TIPUS_ID,MAQUINA_ZONA_ID},
+                camp+"=?", new String[]{String.valueOf(valor)},
+                null, null, MAQUINA_ID);
+    }
+    //OrderBy
+    public Cursor maquinaOrderBy(String camp) {
+        return dbR.query(TABLE_MAQUINA, new String[]{MAQUINA_ID,MAQUINA_NOM_CLIENT,MAQUINA_ADRECA,MAQUINA_CODI_POSTAL,MAQUINA_POBLACIO,MAQUINA_TELEFON,MAQUINA_EMAIL,MAQUINA_NUMERO_SERIE,MAQUINA_ULTIMA_REVISIO,MAQUINA_TIPUS_ID,MAQUINA_ZONA_ID},
+                null, null,
+                null, null, camp);
+    }
+
+
     //***********************
     // CRUD TIPUS DE MAQUINES
     //***********************
@@ -140,6 +154,8 @@ public class DataSource {
         else
             return false;
     }
+
+
 
     //***********************
     // CRUD ZONES
@@ -186,9 +202,9 @@ public class DataSource {
     public boolean comprobacioDeleteZones(long id) {
         Cursor cursor= dbR.rawQuery("SELECT COUNT (*) FROM " + TABLE_MAQUINA + " WHERE " + MAQUINA_ZONA_ID + "=?",
                 new String[] { String.valueOf(id) });
-
         return  cursor.getCount()<=0;
     }
+
     public boolean comprobacioDeleteTipusMaquina(long id) {
         Cursor cursor= dbR.rawQuery("SELECT COUNT (*) FROM " + TABLE_MAQUINA + " WHERE " + MAQUINA_TIPUS_ID + "=?",
                 new String[] { String.valueOf(id) });

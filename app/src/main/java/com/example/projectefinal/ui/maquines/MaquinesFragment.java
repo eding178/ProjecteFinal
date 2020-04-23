@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import static android.app.Activity.RESULT_OK;
@@ -110,8 +109,8 @@ public class MaquinesFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    private String FilterDialog() {
-        final String[] nSerie = new String[1];
+    private Integer FilterDialog() {
+        //final String[] nSerie = new String[1];
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Nom del tipus de maquina");
@@ -125,7 +124,7 @@ public class MaquinesFragment extends Fragment {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                 nSerie[0] = input.getText().toString();
+                 //nSerie[0] = input.getText().toString();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -135,35 +134,36 @@ public class MaquinesFragment extends Fragment {
             }
         });
         builder.show();
-        return input.getText().toString();
+        return Integer.parseInt(input.getText().toString());
     }
 
     // Capturar pulsacions en el menú de la barra superior.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        String nSerie;
-        Cursor cursorFiltrat;
+        Integer nSerie;
+        Cursor cursor;
 
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case R.id.filtrarNSerie:
                 nSerie = FilterDialog();
-                System.out.println(nSerie);
-                //cursorFiltrat=dataSource.maquinaWhereNumeroSerie(nSerie);
-                //adapter = new Adapter(getActivity(), R.layout.un_maquines, cursorFiltrat, from, to, 1, this);
+                cursor=dataSource.maquinaWhere(DataSource.MAQUINA_NUMERO_SERIE,nSerie);
+                adapter = new Adapter(getActivity(), R.layout.un_maquines, cursor, from, to, 1, this);
                 return true;
             case R.id.ordenarNom:
-
+                cursor=dataSource.maquinaOrderBy(DataSource.MAQUINA_NOM_CLIENT);
+                adapter = new Adapter(getActivity(), R.layout.un_maquines, cursor, from, to, 1, this);
                 return true;
             case R.id.ordenarPoblacio:
-
+                cursor=dataSource.maquinaOrderBy(DataSource.MAQUINA_POBLACIO);
+                adapter = new Adapter(getActivity(), R.layout.un_maquines, cursor, from, to, 1, this);
                 return true;
             case  R.id.ordenarData:
-
+                cursor=dataSource.maquinaOrderBy(DataSource.MAQUINA_ULTIMA_REVISIO);
+                adapter = new Adapter(getActivity(), R.layout.un_maquines, cursor, from, to, 1, this);
                 return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 }
 //****************************
