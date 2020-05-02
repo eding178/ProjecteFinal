@@ -20,16 +20,10 @@ public class MapsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        mapsViewModel =
-                ViewModelProviders.of(this).get(MapsViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_maps, container, false);
-        final TextView textView = root.findViewById(R.id.text_maps);
-        mapsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
+
         return root;
     }
 }
