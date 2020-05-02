@@ -28,7 +28,7 @@ public class maquinesAddEdit extends AppCompatActivity {
     private String zonaEscullida;
     private String tipusMaquinaEscullit;
     ArrayList<Integer> arrayMaquines_NumeroSerie = new ArrayList<>();
-
+    Cursor datos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +122,7 @@ public class maquinesAddEdit extends AppCompatActivity {
 
         // Demanem un cursor que retorna un sol registre amb les dades de la tasca
         // Això es podria fer amb un classe pero...
-        Cursor datos = dataSource.maquina(id);
+        datos = dataSource.maquina(id);
         datos.moveToFirst();
 
         // Carreguem les dades en la interfície
@@ -182,30 +182,35 @@ public class maquinesAddEdit extends AppCompatActivity {
             myDialogs.showToast(this,"Hi ha hagut algun error");
             return;
         }
-//comprobar que el numero de serie no esigui repetit
-        tv = (TextView) findViewById(R.id.numeroSerie);
+//comprobar que el numero de serie no esigui repetit en el cas de que s estigui creant
         String num;
-        num = tv.getText().toString();
-        if(num.length()<=0){
-            myDialogs.showToast(this,"El numero de serie no es valid");
-            return;
-        }
-        try {
-            int numeroSerie=Integer.parseInt(num);
-            System.out.println("***************************************************************************************");
-            int i=1;
-            while (i<arrayMaquines_NumeroSerie.size()){
-                System.out.println("NUMERO DE SERIE ESCRIT:"+numeroSerie+"\nNUMERO UNA ALTRE MAQUINA: "+arrayMaquines_NumeroSerie.get(i));
-                if(arrayMaquines_NumeroSerie.get(i)==numeroSerie){
-                    myDialogs.showToast(this,"El numero de serie ya existe");
-                    return;
-                }
-                i++;
+        if(id == -1){
+            tv = (TextView) findViewById(R.id.numeroSerie);
+
+            num = tv.getText().toString();
+            if(num.length()<=0){
+                myDialogs.showToast(this,"El numero de serie no es valid");
+                return;
             }
-        }
-        catch (Exception e) {
-            myDialogs.showToast(this,"El numero de serie ha de ser un valor numeric");
-            return;
+            try {
+                int numeroSerie=Integer.parseInt(num);
+                System.out.println("***************************************************************************************");
+                int i=1;
+                while (i<arrayMaquines_NumeroSerie.size()){
+                    System.out.println("NUMERO DE SERIE ESCRIT:"+numeroSerie+"\nNUMERO UNA ALTRE MAQUINA: "+arrayMaquines_NumeroSerie.get(i));
+                    if(arrayMaquines_NumeroSerie.get(i)==numeroSerie){
+                        myDialogs.showToast(this,"El numero de serie ya existe");
+                        return;
+                    }
+                    i++;
+                }
+            }
+            catch (Exception e) {
+                myDialogs.showToast(this,"El numero de serie ha de ser un valor numeric");
+                return;
+            }
+        }else{
+             num=datos.getString(datos.getColumnIndex(DataSource.MAQUINA_NUMERO_SERIE));
         }
 
         Spinner spinner=  findViewById(R.id.tipusMaquinaSpin);
